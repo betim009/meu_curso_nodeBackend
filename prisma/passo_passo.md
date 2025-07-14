@@ -95,6 +95,73 @@ Adicione em `package.json`:
 - O padrão MSC facilita a manutenção e escalabilidade do projeto.
 - Para adicionar novos recursos, siga a mesma lógica: crie Model, Service, Controller e rotas.
 
+## 11. Autenticação JWT e Proteção de Rotas
+
+- Instale a dependência:
+  ```bash
+  npm install jsonwebtoken
+  ```
+- No login (`POST /users/login`), o backend retorna um token JWT.
+- Para acessar rotas protegidas, envie o header:
+  ```
+  Authorization: Bearer SEU_TOKEN_AQUI
+  ```
+- O middleware `authenticateToken` (em `src/middleware/authMiddleware.js`) protege as rotas.
+- Exemplo de rota protegida:
+  ```js
+  router.get('/private/teste', authenticateToken, (req, res) => {
+    res.json({ message: 'Acesso autorizado!', user: req.user })
+  })
+  ```
+- Agora, todas as rotas de usuário (exceto login e cadastro) exigem autenticação JWT.
+
+## 12. Resetando o banco de dados e rodando o seeder automaticamente
+
+- Para apagar todas as tabelas, rodar todas as migrations do zero e executar o seeder:
+  ```bash
+  npx prisma migrate reset
+  ```
+  > O comando irá pedir confirmação antes de apagar os dados. Use apenas em desenvolvimento!
+
+## 13. Deletando e recriando tabelas específicas
+
+- Para deletar uma tabela:
+  1. Remova o model correspondente do arquivo `prisma/schema.prisma`.
+  2. Rode:
+     ```bash
+     npx prisma migrate dev --name drop-nome-da-tabela
+     ```
+- Para recriar a tabela:
+  1. Adicione novamente o model no `schema.prisma`.
+  2. Rode:
+     ```bash
+     npx prisma migrate dev --name create-nome-da-tabela
+     ```
+
+## 14. Dicas de segurança e produção
+
+- **Nunca armazene senhas em texto puro!** Use hash de senha (ex: bcrypt) em produção.
+- Use variáveis de ambiente para o segredo do JWT e para a conexão do banco.
+- Para rodar migrations em produção, use:
+  ```bash
+  npx prisma migrate deploy
+  ```
+
+## 15. Comandos úteis
+
+- Rodar o servidor em modo desenvolvimento:
+  ```bash
+  npm run dev
+  ```
+- Rodar o seeder manualmente:
+  ```bash
+  npm run seed
+  ```
+- Resetar o banco e rodar o seeder:
+  ```bash
+  npx prisma migrate reset
+  ```
+
 ---
 
 **Dica:** Use ferramentas como Postman ou Insomnia para testar as rotas da API. 

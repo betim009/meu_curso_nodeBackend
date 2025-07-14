@@ -1,4 +1,5 @@
 import { UserService } from '../services/userService.js'
+import jwt from 'jsonwebtoken'
 
 export const UserController = {
   async getUsers(req, res) {
@@ -50,7 +51,13 @@ export const UserController = {
       const { email, password } = req.body
       const user = await UserService.login(email, password)
       if (!user) return res.status(401).json({ error: 'Credenciais inválidas' })
-      res.json({ message: 'Login bem-sucedido', user })
+      // Gerar JWT
+      const token = jwt.sign(
+        { id: user.id, email: user.email },
+        'secreta123', // Troque por uma variável de ambiente em produção
+        { expiresIn: '1h' }
+      )
+      res.json({ message: 'Login bem-sucedido', token })
     } catch (error) {
       res.status(500).json({ error: 'Erro ao fazer login' })
     }

@@ -15,7 +15,11 @@
   "dependencies": {
     "@prisma/client": "^6.11.1",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "prisma": "^6.11.1"
+  },
+  "prisma": {
+    "seed": "node src/seeders/userSeeder.js"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
