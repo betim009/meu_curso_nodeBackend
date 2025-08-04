@@ -15,7 +15,10 @@ export const listAllWithMongoose = async () => {
   console.log("Documentos encontrados com Mongoose:", dados);
 }
 
-
+export const findActives = async (status) => {
+  const data = await Agricultor.find({active: status});
+  console.log(data);
+}
 
 export const createWithMongoose = async () => {
   const novo = new Agricultor({

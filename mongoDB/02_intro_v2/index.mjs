@@ -1,6 +1,6 @@
 import "dotenv/config";
 import mongoose from "mongoose";
-import { listAllWithMongoose } from "./agricultors.js";
+import { findActives, listAllWithMongoose } from "./agricultors.js";
 
 async function connection() {
   try {
@@ -11,7 +11,8 @@ async function connection() {
     console.log("Coleções disponíveis:", colecoes);
 
     // Execucoes
-    listAllWithMongoose();
+    // listAllWithMongoose();
+    findActives(true)
   } catch (err) {
     console.log("Erro na conexão:", err);
   }
