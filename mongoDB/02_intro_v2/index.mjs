@@ -12,10 +12,10 @@ async function connection() {
 
     // Execucoes
     // listAllWithMongoose();
-    findActives(true)
+    findActives(true);
   } catch (err) {
     console.log("Erro na conexão:", err);
   }
 }
 
-connection()
+connection();
