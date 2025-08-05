@@ -34,6 +34,15 @@ Este projeto tem como objetivo demonstrar de forma simples e prática como:
   - Criar um novo agricultor com dados simulados;
 - Serve como base para entender como usar o Mongoose para modelar e manipular documentos no banco.
 
+### 📄 `products.js`
+
+- Contém o modelo `ProdutoAgricola` com campos como `produto`, `preco`, `unidade`, `peso` e `ativo`;
+- Define funções para:
+  - Criar um novo produto agrícola no banco;
+  - Listar todos os produtos (`listAllProducts`);
+  - Buscar um produto específico pelo seu `_id` (`findProductById`);
+- Essencial para demonstrar a criação de uma nova coleção com Mongoose e operações básicas de leitura (read).
+
 ---
 
 ## 🧪 Uso Didático
