@@ -3,27 +3,37 @@ const {
   listar,
   buscarPorId,
   atualizar,
-  deletar
-} = require('../services/produtoService');
+  deletar,
+} = require("../services/produtoService");
 
-async function criarProduto(dados) {
-  return await criar(dados);
+async function criarProduto(req, res) {
+  const data = req.body;
+  const result = await criar(data);
+  return res.json(result);
 }
 
-async function listarProdutos() {
-  return await listar();
+async function listarProdutos(req, res) {
+  const result = await listar();
+  return res.json(result)
 }
 
-async function buscarProdutoPorId(id) {
-  return await buscarPorId(id);
+async function buscarProdutoPorId(req, res) {
+  const { id } = req.params;
+  const result = await buscarPorId(id);
+  return res.json(result);
 }
 
-async function atualizarProduto(id, novosDados) {
-  return await atualizar(id, novosDados);
+async function atualizarProduto(req, res) {
+  const { id } = req.params;
+  const novosDados = req.body;
+  const result = await atualizar(id, novosDados);
+  return res.json(result);
 }
 
-async function deletarProduto(id) {
-  return await deletar(id);
+async function deletarProduto(req, res) {
+  const { id } = req.params;
+  const result = await deletar(id);
+  return res.json(result);
 }
 
 module.exports = {
@@ -31,5 +41,5 @@ module.exports = {
   listarProdutos,
   buscarProdutoPorId,
   atualizarProduto,
-  deletarProduto
+  deletarProduto,
 };

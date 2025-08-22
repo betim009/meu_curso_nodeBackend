@@ -1,72 +1,27 @@
-const express = require('express');
+const express = require("express");
 const {
   criarProduto,
   listarProdutos,
   buscarProdutoPorId,
   atualizarProduto,
-  deletarProduto
-} = require('../controllers/produtoController');
+  deletarProduto,
+} = require("../controllers/produtoController");
 
 const router = express.Router();
 
 // GET /produtos
-router.get('/', async (req, res) => {
-  try {
-    const produtos = await listarProdutos();
-    res.json(produtos);
-  } catch (err) {
-    res.status(500).json({ erro: err.message });
-  }
-});
+router.get("/", listarProdutos);
 
 // GET /produtos/:id
-router.get('/:id', async (req, res) => {
-  try {
-    const produto = await buscarProdutoPorId(req.params.id);
-    if (!produto) {
-      return res.status(404).json({ mensagem: 'Produto não encontrado' });
-    }
-    res.json(produto);
-  } catch (err) {
-    res.status(500).json({ erro: err.message });
-  }
-});
+router.get("/:id", buscarProdutoPorId);
 
 // POST /produtos
-router.post('/', async (req, res) => {
-  try {
-    const novoProduto = await criarProduto(req.body);
-    res.status(201).json(novoProduto);
-  } catch (err) {
-    res.status(500).json({ erro: err.message });
-  }
-});
+router.post("/", criarProduto);
 
 // PUT /produtos/:id
-router.put('/:id', async (req, res) => {
-  try {
-    const produtoAtualizado = await atualizarProduto(req.params.id, req.body);
-    if (!produtoAtualizado) {
-      return res.status(404).json({ mensagem: 'Produto não encontrado' });
-    }
-    res.json(produtoAtualizado);
-  } catch (err) {
-    res.status(500).json({ erro: err.message });
-  }
-});
+router.put("/:id", atualizarProduto);
 
 // DELETE /produtos/:id
-router.delete('/:id', async (req, res) => {
-  try {
-    const produtoDeletado = await deletarProduto(req.params.id);
-    if (!produtoDeletado) {
-      return res.status(404).json({ mensagem: 'Produto não encontrado' });
-    }
-    res.status(204).send();
-  } catch (err) {
-    res.status(500).json({ erro: err.message });
-  }
-});
+router.delete("/:id", deletarProduto);
 
 module.exports = router;
-
