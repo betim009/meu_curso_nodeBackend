@@ -1,0 +1,7 @@
+const produtos = [
+  { produto: 'Café Arábica', preco: 1200.00, unidade: 'saca', peso: 60 },
+  { produto: 'Café Conilon', preco: 950.00, unidade: 'saca', peso: 60 },
+  { produto: 'Café Torrado Moído', preco: 25.00, unidade: 'kg', peso: 1 },
+  { produto: 'Café em Grão Especial', preco: 28.00, unidade: 'kg', peso: 1 },
+  { produto: 'Café Exportação', preco: 5000.00, unidade: 'tonelada', peso: 1000 }
+];
