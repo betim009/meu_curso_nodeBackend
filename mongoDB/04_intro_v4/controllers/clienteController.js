@@ -1,4 +1,10 @@
-const { findClientes } = require("../services/clienteService");
+const {
+  findClientes,
+  findCliente,
+  createCliente,
+  updateCliente,
+  removeCliente,
+} = require("../services/clienteService");
 
 async function getClientes(_req, res) {
   const clientes = await findClientes();
@@ -32,4 +38,8 @@ async function deleteCliente(req, res) {
 
 module.exports = {
   getClientes,
+  getCliente,
+  postCliente,
+  putCliente,
+  deleteCliente,
 };
