@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const produtoRoutes = require("./routes/produtoRoutes");
 const agricultorRoutes = require("./routes/agricultorRoutes");
 const vendaRoutes = require("./routes/vendaRoutes");
+const clienteRoutes = require("./routes/clienteRoutes");
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use("/produto", produtoRoutes);
 app.use("/agricultor", agricultorRoutes);
 app.use("/venda", vendaRoutes);
+app.use("/cliente", clienteRoutes);
 
 const PORT = process.env.PORT || 3000;
 

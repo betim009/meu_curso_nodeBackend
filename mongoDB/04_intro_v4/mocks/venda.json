@@ -1,0 +1,32 @@
+[
+  {
+    "usuario": "60d5ec49f8d2e30f8c8b4567",
+    "cliente": "60d5ec49f8d2e30f8c8b4568",
+    "itens": [
+      "60d5ec49f8d2e30f8c8b4569",
+      "60d5ec49f8d2e30f8c8b4570"
+    ],
+    "total": 150.75,
+    "status": "aberta"
+  },
+  {
+    "usuario": "60d5ec49f8d2e30f8c8b4571",
+    "cliente": "60d5ec49f8d2e30f8c8b4572",
+    "itens": [
+      "60d5ec49f8d2e30f8c8b4573"
+    ],
+    "total": 75.50,
+    "status": "paga"
+  },
+  {
+    "usuario": "60d5ec49f8d2e30f8c8b4574",
+    "cliente": "60d5ec49f8d2e30f8c8b4575",
+    "itens": [
+      "60d5ec49f8d2e30f8c8b4576",
+      "60d5ec49f8d2e30f8c8b4577",
+      "60d5ec49f8d2e30f8c8b4578"
+    ],
+    "total": 320.00,
+    "status": "cancelada"
+  }
+]

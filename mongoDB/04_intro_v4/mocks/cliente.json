@@ -1,0 +1,37 @@
+[
+    {
+        "nome": "Ana Paula Silva",
+        "email": "ana.paula@gmail.com",
+        "telefone": "(11) 99999-1234",
+        "endereco": "Rua das Flores, 123, São Paulo, SP",
+        "status": "ativo"
+    },
+    {
+        "nome": "Carlos Eduardo Souza",
+        "email": "carlos.souza@hotmail.com",
+        "telefone": "(21) 98888-5678",
+        "endereco": "Av. Atlântica, 456, Rio de Janeiro, RJ",
+        "status": "inativo"
+    },
+    {
+        "nome": "Fernanda Lima",
+        "email": "fernanda.lima@yahoo.com",
+        "telefone": "(31) 97777-2345",
+        "endereco": "Rua Minas Gerais, 789, Belo Horizonte, MG",
+        "status": "ativo"
+    },
+    {
+        "nome": "João Pedro Ramos",
+        "email": "joao.ramos@gmail.com",
+        "telefone": "(41) 96666-3456",
+        "endereco": "Av. Curitiba, 321, Curitiba, PR",
+        "status": "pendente"
+    },
+    {
+        "nome": "Mariana Castro",
+        "email": "mariana.castro@outlook.com",
+        "telefone": "(51) 95555-4567",
+        "endereco": "Rua Porto Alegre, 654, Porto Alegre, RS",
+        "status": "ativo"
+    }
+]
