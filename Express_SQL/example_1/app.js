@@ -34,21 +34,52 @@ app.get("/actor", async (req, res) => {
   return res.json(actors);
 });
 
-app.get("/ator", async function(req, res) {
+// app.get("/actor/:id", async (req, res) => {
+//   const { id } = req.params;
+//   const [actor] = await connection.execute("SELECT * FROM actor WHERE actor_id = ?", [id]);
+//   return res.json(actor);
+// });
+
+app.get("/actor/:id", async (req, res) => {
+  const { id } = req.params;
+  const [actors] = await connection.execute(
+    "SELECT * FROM actor WHERE actor_id = ?",
+    [id]
+  );
+
+
+  if (actors.length > 0) {
+    const [actor] = actors; 
+    const fn = `${actor.first_name[0]}${actor.first_name.slice(1).toLowerCase()}`;
+    const ln = `${actor.last_name[0]}${actor.last_name.slice(1).toLowerCase()}`;
+    const fullName = `${fn} ${ln}`
+
+    return res.json({
+      id: actor.actor_id,
+      fullName: fullName
+    });
+  };
+
+  return res.json({
+    msg: "Actor not found"
+  });
+});
+
+app.get("/ator", async function (req, res) {
   const [atores] = await connection.execute("SELECT * FROM actor");
   return res.json(atores);
 });
 
-app.get("/api/ator", async function(req, res) {
+app.get("/api/ator", async function (req, res) {
   const [atores] = await connection.execute("SELECT * FROM actor");
 
   const novos_atores = [];
   for (const element of atores) {
     novos_atores.push({
       id: element.actor_id,
-      nome_completo: `${element.first_name} ${element.last_name}`
+      nome_completo: `${element.first_name} ${element.last_name}`,
     });
-  };
+  }
 
   return res.json(novos_atores);
 });
@@ -59,13 +90,12 @@ app.get("/api/actor", async (req, res) => {
   const new_actors = actors.map((element) => {
     return {
       id: element.actor_id,
-      full_name: `${element.first_name} ${element.last_name}`
-    }
+      full_name: `${element.first_name} ${element.last_name}`,
+    };
   });
 
   return res.json(new_actors);
 });
-
 
 app.get("/address", async (req, res) => {
   const [address] = await connection.execute("SELECT * FROM address");
