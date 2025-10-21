@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs");
 const {
   modelCreateUser,
   modelFindUsers,
@@ -6,7 +7,10 @@ const {
 const { generateToken } = require("../utils/jwt");
 
 const serviceCreateUser = async (user) => {
-  return await modelCreateUser(user);
+  const hashedPassword = await bcrypt.hash(user.password, 10);
+  const userToCreate = { ...user, password: hashedPassword };
+
+  return await modelCreateUser(userToCreate);
 };
 
 const serviceFindUsers = async () => {
@@ -16,7 +20,15 @@ const serviceFindUsers = async () => {
 const serviceLoginUser = async ({ email, password }) => {
   const user = await modelFindUserByEmail(email);
 
-  if (!user || user.password !== password) {
+  if (!user) {
+    return {
+      error: { status: 401, message: "Credenciais inválidas" },
+    };
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordValid) {
     return {
       error: { status: 401, message: "Credenciais inválidas" },
     };
