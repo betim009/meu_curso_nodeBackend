@@ -6,6 +6,7 @@ const {
   getActorId,
   createActor,
   deleteActor,
+  updateActorId,
 } = require("./src/routes/actor");
 
 const app = express();
@@ -24,9 +25,11 @@ app.listen(PORT, async () => {
   }
 });
 
-app.get("/actor", getActors);
+// app.get("/actor", getActors);
+app.get("/actor/page/:page", getActors);
 app.get("/actor/:id", getActorId);
 app.post("/actor/create", createActor);
 app.delete("/actor/delete/:id", deleteActor);
+app.put("/actor/update/:id", updateActorId);
 
 module.exports = app;
