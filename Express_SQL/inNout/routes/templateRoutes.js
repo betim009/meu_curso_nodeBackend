@@ -4,13 +4,11 @@ const connection = require("../connection");
 const router = express.Router();
 
 router.get("/admin", async (req, res) => {
-  const [result] = await connection.execute("");
-  return res.json(result);
+
 });
 
 router.get("/", async (req, res) => {
-  const [result] = await connection.execute("");
-  return res.json(result);
+
 });
 
 router.get("/:id", async (req, res) => {
