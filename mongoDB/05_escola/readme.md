@@ -7,6 +7,7 @@ API REST simples para gerenciar professores (e futuramente alunos e turmas) usan
 - Express 5
 - Mongoose 8
 - MongoDB Atlas (ou outro cluster Mongo compatível)
+- Bcrypt (hash de senhas)
 - Dotenv para carregar variáveis de ambiente
 - Nodemon para desenvolvimento
 
@@ -14,7 +15,7 @@ API REST simples para gerenciar professores (e futuramente alunos e turmas) usan
 1. Instale dependências (você também pode rodar os comandos um a um caso prefira):
    ```bash
    npm init -y
-   npm install express mongoose dotenv
+   npm install express mongoose dotenv bcryptjs
    npm install --save-dev nodemon
    # ou simplesmente:
    npm install
@@ -39,12 +40,15 @@ O projeto segue o padrão MSC:
 - `connection.mjs`: Conexão com MongoDB
 - `index.mjs`: Ponto de entrada
 
-### Endpoints (Professores)
-- `GET /professores` – lista todos
-- `GET /professores/:id` – busca por ID
-- `POST /professores` – cria um professor
-- `PUT /professores/:id` – atualiza
-- `DELETE /professores/:id` – remove
+### Endpoints
+- Professores
+  - `GET /professores` – lista todos
+  - `GET /professores/:id` – busca por ID
+  - `POST /professores` – cria um professor (campo `senha` é obrigatório; salvo com hash)
+  - `PUT /professores/:id` – atualiza
+  - `DELETE /professores/:id` – remove
+- Auth
+  - `POST /auth/login` – autentica professor (`email` + `senha`)
 
 Use Thunder Client/Postman para testar enviando/recebendo JSON.
 
@@ -55,7 +59,8 @@ Use Thunder Client/Postman para testar enviando/recebendo JSON.
     "nome": "Maria Souza",
     "email": "maria.souza@escola.com",
     "disciplina": "Matemática",
-    "telefone": "(11) 99999-0000"
+    "telefone": "(11) 99999-0000",
+    "senha": "minhasenha123"
   }
   ```
 - `PUT /professores/:id`
