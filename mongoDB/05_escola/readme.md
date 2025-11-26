@@ -15,7 +15,7 @@ API REST simples para gerenciar professores (e futuramente alunos e turmas) usan
 1. Instale dependências (você também pode rodar os comandos um a um caso prefira):
    ```bash
    npm init -y
-   npm install express mongoose dotenv bcryptjs
+   npm install express mongoose dotenv bcryptjs jsonwebtoken
    npm install --save-dev nodemon
    # ou simplesmente:
    npm install
@@ -24,6 +24,8 @@ API REST simples para gerenciar professores (e futuramente alunos e turmas) usan
    ```
    MONGO_URI=<sua-string-de-conexao>
    PORT=3000
+   JWT_SECRET=<chave-secreta-jwt>
+   JWT_EXPIRES_IN=1h  # opcional, default 1h
    ```
 3. Inicie o servidor:
    ```bash
@@ -48,7 +50,30 @@ O projeto segue o padrão MSC:
   - `PUT /professores/:id` – atualiza
   - `DELETE /professores/:id` – remove
 - Auth
-  - `POST /auth/login` – autentica professor (`email` + `senha`)
+  - `POST /auth/login` – autentica professor (`email` + `senha`) e retorna `token` JWT + dados do professor
+  - `POST /auth/register` – cria professor e já retorna `token` JWT + dados do professor
+
+As rotas de professores exigem o header `Authorization: Bearer <token>` retornado no login/register.
+
+### Exemplo de uso do JWT (Thunder Client/Postman)
+1. Registrar ou logar:
+   - `POST /auth/register` com JSON:
+     ```json
+     {
+       "nome": "Ana Silva",
+       "email": "ana.silva@escola.com",
+       "senha": "MinhaSenha@123",
+       "disciplina": "Matemática",
+       "telefone": "(11) 98888-0000",
+       "contratadoEm": "2024-05-10"
+     }
+     ```
+   - Resposta terá `token`.
+2. Usar o token:
+   - Em qualquer rota de `/professores`, inclua o header:
+     ```
+     Authorization: Bearer <token>
+     ```
 
 Use Thunder Client/Postman para testar enviando/recebendo JSON.
 

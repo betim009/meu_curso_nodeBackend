@@ -6,8 +6,11 @@ import {
   updateProfessor,
   deleteProfessor,
 } from "../controllers/professorController.mjs";
+import { autenticarToken } from "../midlewares/authMiddleware.mjs";
 
 const router = Router();
+
+router.use(autenticarToken);
 
 router.get("/", getProfessores);
 router.get("/:id", getProfessor);

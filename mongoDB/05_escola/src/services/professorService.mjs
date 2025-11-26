@@ -1,9 +1,17 @@
 import bcrypt from "bcryptjs";
 import Professor from "../models/professorModel.mjs";
+import { criarProfessorDto, professorDto } from "../dtos/professorDto.mjs";
 
-export const listarProfessores = () => Professor.find().lean();
+export const listarProfessores = async () => {
+  const data = await Professor.find().lean();
+  const professores = data.map((professor) => professorDto(professor));
+  return professores;
+};
 
-export const buscarProfessorPorId = (id) => Professor.findById(id).lean();
+export const buscarProfessorPorId = async (id) => {
+  const professor = await Professor.findById(id).lean();
+  return professorDto(professor);
+};
 
 export const criarProfessor = async (dados) => {
   const payload = { ...dados };
@@ -12,7 +20,8 @@ export const criarProfessor = async (dados) => {
     payload.senha = await bcrypt.hash(payload.senha, 10);
   }
 
-  return Professor.create(payload);
+  const professorCriado = await Professor.create(payload);
+  return criarProfessorDto(professorCriado);
 };
 
 export const atualizarProfessor = async (id, dados) => {
@@ -22,9 +31,18 @@ export const atualizarProfessor = async (id, dados) => {
     payload.senha = await bcrypt.hash(payload.senha, 10);
   }
 
-  return Professor.findByIdAndUpdate(id, payload, { new: true, runValidators: true }).lean();
+  const professorAtualizado = await Professor.findByIdAndUpdate(id, payload, {
+    new: true,
+    runValidators: true,
+  }).lean();
+
+  return professorDto(professorAtualizado);
 };
 
-export const removerProfessor = (id) => Professor.findByIdAndDelete(id).lean();
+export const removerProfessor = async (id) => {
+  const professorRemovido = await Professor.findByIdAndDelete(id).lean();
+  return professorDto(professorRemovido);
+};
 
-export const buscarProfessorPorEmail = (email) => Professor.findOne({ email }).lean();
+export const buscarProfessorPorEmail = (email) =>
+  Professor.findOne({ email }).lean();
